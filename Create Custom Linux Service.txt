@@ -1,0 +1,90 @@
+
+After changing mac address creating custom service.
+Setting Process
+-------------------------------------------------------------
+Once you have rebooted the machine.
+
+Then run the following commands for creating your own service
+
+
+cat /usr/lib/systemd/apache2.service
+
+
+Then copy the unit and service part then run the command
+
+sudo nano /etc/systemd/system/randmacgen.service
+
+A file is created and copy that then change.
+
+
+Descripition = Random MAC Address Generator
+
+Remove the service part after ExecStart
+
+and then change Type=simple & ExecStart = your randmacgen service path
+
+Save and Exit
+
+-----------------------------------------------------------------
+Running Process
+-----------------------------------------------------------------
+Check your mac address
+
+macchanger -s eth0
+ 
+Then run the commands
+
+sudo chmod 644 /etc/systemd/system/randmacgen.service
+
+sudo service randmacgen start
+
+sudo service randmacgen status
+
+sudo systemcl enable randmacgen
+
+sudo nano /etc/systemd/system/randmavgen.service
+
+and Under Unit write
+After=network-online.target
+Wants=network-online.target
+
+Save and Exit
+
+then continue commands
+
+macchanger -s eth0
+reboot
+
+service randmacgen status
+macchanger -s eth0
+------------------------------------------------------------------
+If you want that service should run for particular time interval
+then run the following commands
+-------------------------------------------------------------------
+sudo crontab -e (Enter you password)
+(You can also visit crontab guru website for more info)
+(set your time accordingly)
+
+* * * * *  your script file path  > your log file path
+Save and Exit and service will be started
+
+to check service
+
+service cron status
+
+touch cron.log
+tail -f cron.log
+
+for reboot cron service
+
+sudo crontab -e
+and set and reboot you have to manually enable for ruuning it again
+
+then write the command
+
+@reboot your service path
+
+Save and Exit
+
+
+
